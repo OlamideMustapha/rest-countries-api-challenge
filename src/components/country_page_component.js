@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import "./sass/styles.sass"
 
 
+// back arrow <ion-icon name="arrow-back-sharp"></ion-icon>
+
 const Info = (props) => {
   return (
     <li>

@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import "./sass/styles.sass"
+import { createStore, combineReducers } from 'redux';
+
+import "./sass/styles.sass";
 
 
 
@@ -8,6 +10,9 @@ import "./sass/styles.sass"
 // search input
 // filter dropdown
 // country card
+
+
+
 
 
 const App = (props) => {
