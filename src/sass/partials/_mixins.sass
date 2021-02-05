@@ -27,3 +27,16 @@ $breakpoints-down: ("xsmall": "374px", "small": "639px", "medium": "1023px", "la
   flex-direction: column
   align-items: $al
   justify-content: $js
+
+@mixin input-wrapper ()
+  padding: 3vw 4vw
+  border-radius: 1.5vw
+  @include breakpoint-up(medium)
+    padding: 1vw
+    border-radius: 0.5vw
+
+  
+  
+@mixin input-style ()
+  outline: none
+  border: none

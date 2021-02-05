@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import { Provider, connect } from "react-redux";
-import CountryCard from "./country_card_component.js";
-import "./sass/styles.sass"
-
+import CountryCard from "./country-card-component.js";
+import store from "../redux-store.js";
+import "../sass/styles.sass";
+import "./drop-down-component.js";
+import DropDown from './drop-down-component.js';
 
 // search <ion-icon name="search"></ion-icon>
 
@@ -22,6 +24,8 @@ import "./sass/styles.sass"
 
 const defaultState = {
   fetching: false,
+  search: { query: "*" },
+  filter: { by: "all" },
   countries: []
 };
 
@@ -31,18 +35,20 @@ const RECEIVED_DATA   = "RECEIVED_DATA";
 
 
 const requestingData = () => ({ type: REQUESTING_DATA });
-const receivedData   = () => ({ type: RECEIVED_DATA, users: data.users });
+const receivedData   = (data) => ({ type: RECEIVED_DATA, data: data });
 
 
 const handleSearchRequest = (type, value) => {
 
-  const api = " https://restcountries.eu/rest/v2/";
+  const api      = " https://restcountries.eu/rest/v2/";
   const endpoint = type === "search" ? `name/${value}` : `region/${value}`;
+  const fields   = `?fields=name;population;capital;region;flag`;
+
 
   return (dispatch) => {
     dispatch (requestingData ());
 
-    fetch (api + endpoint)
+    fetch (api + endpoint + fields)
       .then (res => res.json ())
       .then (data => {
         dispatch (receivedData (data));
@@ -51,19 +57,22 @@ const handleSearchRequest = (type, value) => {
   }
 }
 
-const searchReducer = (state = defaultState, action) => {
+
+export const searchReducer = (state = defaultState, action) => {
   switch (action.type) {
     case REQUESTING_DATA:
       return { fetching: true, countries: [] };
     case RECEIVED_DATA:
-      return { fetching: false, countries: action.users };
+      return { fetching: false, countries: action.data };
     default:
       return state;
   }
 }
 
-mapDispatchToProps = (dispatch) => ({searchCountry: (name) => dispatch (handleSearchRequest (name))});
-mapStateToProps = (state) => ({ countries: state });
+const mapDispatchToProps = (dispatch) =>
+  ({searchCountry: (type, value) => dispatch (handleSearchRequest (type, value))});
+const mapStateToProps = ({home}) => ({ countries: home.countries });
+
 
 
 class Presentational extends Component {
@@ -75,7 +84,7 @@ class Presentational extends Component {
     };
 
     this.handleInputChange = this.handleInputChange.bind (this);
-    this.searchByName      = this.search.bind (this);
+    this.searchByName      = this.searchByName.bind (this);
     this.filterByRegion    = this.filterByRegion.bind (this);
   }
 
@@ -90,46 +99,45 @@ class Presentational extends Component {
     this.setState ({ input: "" });
   }
 
-  filterByRegion (event) {
-    this.props.searchCountry ("filter", this.event.target.value);
+  filterByRegion (value) {
+    this.props.searchCountry ("filter", value);
   }
 
 
 
   render () {
     return (
-      <div className="home">
+      <div className="home p-sm p-l">
 
         <div className="search-filter">
-          <div clasName="search__input-wrapper">
+          <div className="search__input-wrapper">
             <button className="search__btn btn" onClick={this.searchByName}>
-              <ion-icon name="search"></ion-icon>
+              <svg xmlns='http://www.w3.org/2000/svg' className='ionicon' viewBox='0 0 512 512'>
+                <title>Search</title>
+                <path d='M221.09 64a157.09 157.09 0 10157.09 157.09A157.1 157.1 0 00221.09 64z' fill='none' stroke='currentColor' strokeMiterlimit='10' strokeWidth='32'/>
+                <path fill='none' stroke='currentColor' strokeLinecap='round' strokeMiterlimit='10' strokeWidth='32' d='M338.29 338.29L448 448'/>
+              </svg>
             </button>
-            <input value={this.state.input} onChange={this.handleInputChange} />
+            <input value={this.state.input} onChange={this.handleInputChange} placeholder="Search for a country..."/>
           </div>
 
-          <div className="filter__select-wrapper">
-            <select className="filter__drop_down" name="filter">
-              <option value="Africa">Africa</option>
-              <option value="Europe">Europe</option>
-              <option value="Americas">Americas</option>
-              <option value="Asia">Asia</option>
-              <option value="Oceania">Oceania</option>
-            </select>
+          <div className="filter__drop-down-wrapper">
+            <DropDown filterByRegion={this.filterByRegion}/>
           </div>
         </div>
 
 
         {/* render list of countries */}
-        <div>
+        <div className="country__card-wrapper">
           {
-            this.props.view.map (c => 
-              <CountryCard 
-                flag={c.flag} 
-                name={c.name}
-                populaton={c.populaton}
-                region={c.region}
-                capital={c.capital}/>)
+              this.props.countries.map ((c, idx) => 
+                <CountryCard 
+                  key={idx}
+                  flag={c.flag} 
+                  name={c.name}
+                  population={c.population}
+                  region={c.region}
+                  capital={c.capital}/>)
           }
         </div>
       </div>
@@ -137,11 +145,7 @@ class Presentational extends Component {
   }
 
   componentDidMount () {
-    const dropDown = document.querySelector ("filter__drop_down");
-
-    dropDown.childNodes.forEach (child => {
-      child.addEventListener ("click", this.filterByRegion)
-    })
+   this.filterByRegion ("Africa")
   }
 }
 

@@ -1,0 +1,79 @@
+.country__card
+  @include flex-column (center, center)
+  border-radius: $border-radius-sm
+  width: 81vw
+  flex: 100%
+  margin-top: 10vw
+  @include breakpoint-up (medium)
+    margin: $card-margin-m
+    width: 19vw
+    flex: 25%
+    border-radius: $border-radius-l
+
+  @include breakpoint-up (large)
+    margin: $card-margin-l
+    flex: 20%
+
+
+  &-flag-wrapper
+    height: 50vw
+    width: 100%
+    @include breakpoint-up (medium)
+      height: 13vw
+
+    @include breakpoint-up (large)
+      height: 11vw
+
+  &-flag
+    background-position: center center
+    background-size: 100%
+    background-repeat: no-repeat
+    width: 100%
+    height: 100%
+    border-top-right-radius: $border-radius-sm
+    border-top-left-radius: $border-radius-sm
+    @include breakpoint-up (medium)
+      border-top-right-radius: $border-radius-l
+      border-top-left-radius: $border-radius-l
+
+  &-info-wrapper
+    width: 100%
+    border-bottom-right-radius:$border-radius-sm
+    border-bottom-left-radius:$border-radius-sm
+    padding: 6vw
+    @include breakpoint-up (medium)
+      padding: 1.5vw
+      border-bottom-right-radius:$border-radius-l
+      border-bottom-left-radius:$border-radius-l
+
+    & > div
+      margin: 6vw 0
+      @include breakpoint-up (medium)
+        margin: 1vw 0
+
+  &-name
+    font-size: 8vw
+    padding: 0
+    margin: 0
+    white-space: nowrap
+    overflow: scroll
+    @include breakpoint-up (medium)
+      font-size: 2vw
+
+
+  &-info
+    @include flex-row (flex-start, center)
+    font-weight: 400
+    padding-bottom: 1.9vw
+    font-size: 4.8vw
+
+    @include breakpoint-up (medium)
+      padding-bottom: .7vw
+      font-size: 1.3vw
+
+    &-title
+      padding-right: 1.5vw
+      font-weight: 700
+      @include breakpoint-up (medium)
+        padding-right: .5vw
+

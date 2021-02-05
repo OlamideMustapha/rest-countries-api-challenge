@@ -38,7 +38,7 @@ const browserSyncWebpack = new BrowserSyncPlugin (
    * Prevent BrowserSync from reloading the page and let webpack Dev server
    * take care of this
    */
-  { reload: false } 
+  { reload: true } 
 );
 
 
@@ -135,7 +135,7 @@ const config = {
         loader: "file-loader"
         , options: {
             // File output path are relative to ./build/static/js
-            outputPath: "../assets"
+            outputPath: ENV === "production" ? "../assets" : "assets"
           }
         }
       }

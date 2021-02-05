@@ -1,2 +1,2 @@
 import React, { Component } from 'react';
-import "./sass/styles.sass"
+import "../sass/styles.sass"

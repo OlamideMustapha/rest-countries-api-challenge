@@ -4,9 +4,33 @@ body, html, #root
   padding: 0
   margin: 0
   font-size: $font-size-m
+  font-weight: 600
+  min-height: 100%
+  height: 100%
+  max-width: max-content
 
 *, *::before, *::after
   box-sizing: border-box
   /* defualt app transition */
   transition: all 0.2s ease-in-out
   font-family: 'Nunito Sans', sans-serif
+
+
+.app
+  height: 100%
+  width: 100vw
+
+  
+.p-sm
+  @include breakpoint-down (medium)
+  padding: 6vw 4vw
+.p-l
+  @include breakpoint-up (medium)
+    padding: 1vw 6vw  
+
+.m-offset-sm
+  @include breakpoint-down (medium)
+  margin: -6vw -4vw
+.m-offset-l
+  @include breakpoint-up (medium)
+    margin: -1vw -6vw

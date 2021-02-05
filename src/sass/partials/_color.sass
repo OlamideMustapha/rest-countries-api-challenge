@@ -1,0 +1,56 @@
+.light
+  color: $veryDarkBlue-text
+  background-color: $veryLightGray
+
+  // nav color styles
+  .nav
+    background-color: $white
+    box-shadow: $boxShadow-light
+
+  .home
+    .search-filter
+      .search__input-wrapper
+        background-color: $white
+        color: inherit
+        box-shadow: $boxShadow-light
+        input
+          background-color: inherit
+          color: $darkGray
+      .filter__drop-down-wrapper
+        .drop-down
+          background-color: $white
+          box-shadow: $boxShadow-light
+          color: inherit
+          &__view
+          &__text
+          &__btn
+          &__options
+            background-color: $white
+            box-shadow: inherit
+            button
+              background-color: inherit
+              color: inherit
+              &:hover
+                background-color: $veryLightGray
+    .country__card-wrapper
+      .country__card
+        box-shadow: $boxShadow-light
+
+
+.dark
+  color: $white
+  background-color: $veryDarkBlue-bg
+  .nav
+    // edit
+    box-shadow: $boxShadow-dark
+  .home
+    .search-filter
+      .search__input-wrapper
+        input
+      .filter__drop-down-wrapper
+        .filter__drop-down
+
+          option
+    .country__card-wrapper
+      .country__card
+        box-shadow: $boxShadow-light
