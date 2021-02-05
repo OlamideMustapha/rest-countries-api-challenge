@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Provider, connect } from "react-redux";
+import { connect } from "react-redux";
 import "../sass/styles.sass"
 import moon from "../assets/moon.svg"
 
@@ -25,12 +25,14 @@ export const navReducer = (state = defaultState, action) => {
 }
 
 const mapDispatchToProps = (dispatch) => ({toggleMode: () => dispatch (toggleMode ())});
-const mapStateToProps    = (state) => ({ darkMode: state });
+const mapStateToProps    = ({ nav }) => (
+  { darkMode: nav.darkMode }
+);
 
 
 const Presentational = props => {
   return (
-    <nav className="nav p-sm p-l">
+    <nav className={`nav p-sm p-l`}>
       <div>
         <h1 className="nav__text">Where in the world?</h1>
       </div>

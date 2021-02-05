@@ -2,55 +2,113 @@
   color: $veryDarkBlue-text
   background-color: $veryLightGray
 
+  .btn
+    color: $veryDarkBlue-text
+    background-color: $veryLightGray
+    svg path
+      stroke: $veryDarkBlue-bg
+    &.search__btn
+      svg path
+        stroke: $darkGray
+  
+    &.nav__btn
+      background-color: inherit
   // nav color styles
   .nav
+    color: $veryDarkBlue-text
     background-color: $white
     box-shadow: $boxShadow-light
+    .nav__text
+      color: $veryDarkBlue-text
 
   .home
     .search-filter
       .search__input-wrapper
         background-color: $white
-        color: inherit
+        color: $veryDarkBlue-text
         box-shadow: $boxShadow-light
         input
-          background-color: inherit
-          color: $darkGray
+          background-color: $white
+          &, &::placeholder
+            color: $darkGray
       .filter__drop-down-wrapper
         .drop-down
           background-color: $white
           box-shadow: $boxShadow-light
-          color: inherit
-          &__view
+          color: $veryDarkBlue-text
           &__text
-          &__btn
+            color: $veryDarkBlue-text
           &__options
             background-color: $white
-            box-shadow: inherit
+            box-shadow: $boxShadow-light
             button
-              background-color: inherit
-              color: inherit
+              background-color: $white
+              color: $darkGray
               &:hover
                 background-color: $veryLightGray
     .country__card-wrapper
       .country__card
         box-shadow: $boxShadow-light
+        &-name, &-info, &-title, &-info-title
+          color: $veryDarkBlue-text
 
 
 .dark
   color: $white
   background-color: $veryDarkBlue-bg
+
+  .btn
+    color: $white
+    background-color: $darkBlue
+    svg path
+      stroke: $white
+    &.search__btn
+      svg path
+        stroke: $white
+    &.nav__btn
+      background-color: inherit
+      svg path
+        fill: $white
+        stroke: none
+  .drop-down__btn
+    svg path
+      stroke: $white
   .nav
-    // edit
+    color: $white
+    background-color: $darkBlue
     box-shadow: $boxShadow-dark
+    .nav__text
+      color: $white
+
   .home
     .search-filter
       .search__input-wrapper
+        background-color: $darkBlue
+        color: $white
+        box-shadow: $boxShadow-dark
         input
-      .filter__drop-down-wrapper
-        .filter__drop-down
+          background-color: $darkBlue
+          &, &::placeholder
+            color: $white
 
-          option
+      .filter__drop-down-wrapper
+        .drop-down
+          background-color: $darkBlue
+          box-shadow: $boxShadow-dark
+          color: $white
+          &__text
+            color: $white
+          &__options
+            background-color: $darkBlue
+            box-shadow: $boxShadow-dark
+            button
+              background-color: $darkBlue
+              color: $white
+              &:hover
+                background-color: $veryDarkBlue-bg
     .country__card-wrapper
       .country__card
-        box-shadow: $boxShadow-light
+        background-color: $darkBlue
+        box-shadow: $boxShadow-dark
+        &-name, &-info, &-title, &-info-title
+          color: $white

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import { Provider, connect } from "react-redux";
+import { connect } from "react-redux";
 import CountryCard from "./country-card-component.js";
-import store from "../redux-store.js";
 import "../sass/styles.sass";
 import "./drop-down-component.js";
 import DropDown from './drop-down-component.js';
@@ -22,11 +21,20 @@ import DropDown from './drop-down-component.js';
 // search by fullName: https://restcountries.eu/rest/v2/name/{name}?fullText=true
 // search by region: https://restcountries.eu/rest/v2/region/{region}
 
+const al = {
+  capital: "Algiers",
+  flag: "https://restcountries.eu/data/dza.svg",
+  name: "Algeria",
+  population: 40400000,
+  region: "Africa"
+}
+
+
 const defaultState = {
   fetching: false,
   search: { query: "*" },
   filter: { by: "all" },
-  countries: []
+  countries: [al, al , al , al , al , al , al , al , al, al , al, al]
 };
 
 
@@ -71,7 +79,11 @@ export const searchReducer = (state = defaultState, action) => {
 
 const mapDispatchToProps = (dispatch) =>
   ({searchCountry: (type, value) => dispatch (handleSearchRequest (type, value))});
-const mapStateToProps = ({home}) => ({ countries: home.countries });
+const mapStateToProps = ({ home, nav }) => (
+  { countries: home.countries
+  , darkMode : nav.darkMode
+  }
+);
 
 
 
@@ -107,7 +119,7 @@ class Presentational extends Component {
 
   render () {
     return (
-      <div className="home p-sm p-l">
+      <div className={`home p-sm p-l`}>
 
         <div className="search-filter">
           <div className="search__input-wrapper">
@@ -145,7 +157,7 @@ class Presentational extends Component {
   }
 
   componentDidMount () {
-   this.filterByRegion ("Africa")
+  //  this.filterByRegion ("Africa")
   }
 }
 

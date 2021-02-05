@@ -19,14 +19,14 @@
     height: 50vw
     width: 100%
     @include breakpoint-up (medium)
-      height: 13vw
+      height: 15vw
 
     @include breakpoint-up (large)
       height: 11vw
 
   &-flag
     background-position: center center
-    background-size: 100%
+    background-size: cover
     background-repeat: no-repeat
     width: 100%
     height: 100%
@@ -51,15 +51,16 @@
       @include breakpoint-up (medium)
         margin: 1vw 0
 
+  &-name-wrapper
+    overflow: hidden
   &-name
     font-size: 8vw
     padding: 0
     margin: 0
     white-space: nowrap
-    overflow: scroll
+    overflow: hidden
     @include breakpoint-up (medium)
       font-size: 2vw
-
 
   &-info
     @include flex-row (flex-start, center)
@@ -77,3 +78,8 @@
       @include breakpoint-up (medium)
         padding-right: .5vw
 
+.name-overflow
+  &.country__card-name
+    transition: margin-left 4s ease-in-out
+    &:hover
+      margin-left: -200px

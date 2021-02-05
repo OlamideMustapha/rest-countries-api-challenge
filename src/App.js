@@ -1,6 +1,5 @@
 import React, { Component } from "react";
-import { Provider }         from "react-redux";
-import store                from "./redux-store";
+import { connect } from "react-redux";
 import "./sass/styles.sass";
 
 import HomeContainer from "./components/home-component";
@@ -13,16 +12,22 @@ import NavContainer  from "./components/nav-bar-component";
 // filter dropdown
 // country card
 
-const App = (props) => {
+
+const mapStateToProps = ({nav}) => (
+  { darkMode: nav.darkMode}
+)
+
+
+const Presentational = (props) => {
   return (
-    <Provider store={store}>
-      <div className="app light">
-        <NavContainer />
-        <HomeContainer />
-      </div>
-    </Provider>
+    <div className={`app ${props.darkMode ? "dark" : "light"}`}>
+      <NavContainer />
+      <HomeContainer />
+    </div>
   );
 }
+
+const App = connect (mapStateToProps, null) (Presentational);
 
 
 export default App
