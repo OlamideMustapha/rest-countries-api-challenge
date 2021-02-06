@@ -13,6 +13,10 @@
   
     &.nav__btn
       background-color: inherit
+
+    &.country__btn, &.country__borders-wrapper a
+      box-shadow: 0px 1px 9px 2px #73707057
+    
   // nav color styles
   .nav
     color: $veryDarkBlue-text
@@ -52,6 +56,17 @@
         &-name, &-info, &-title, &-info-title
           color: $veryDarkBlue-text
 
+  .country
+    &__name
+      color: $veryDarkBlue-text
+    &__flag-wrapper
+      box-shadow: 0px 0px 2px 6px #d6d0d157
+    &__info
+      &-title
+        color: $veryDarkBlue-text
+      &-value
+        color: $veryDarkBlue-text
+
 
 .dark
   color: $white
@@ -70,9 +85,13 @@
       svg path
         fill: $white
         stroke: none
+    &.country__btn, &.country__borders-wrapper > a
+      box-shadow: 0px 0px 2px 6px #0000001f
+    
   .drop-down__btn
     svg path
       stroke: $white
+  
   .nav
     color: $white
     background-color: $darkBlue
@@ -112,3 +131,17 @@
         box-shadow: $boxShadow-dark
         &-name, &-info, &-title, &-info-title
           color: $white
+
+  .country
+    &__name
+      color: $white
+    &__flag-wrapper
+      box-shadow: 0px 0px 2px 6px #0000001f
+    &__info
+      &-title
+        color: $white
+      &-value
+        color: $white
+
+
+          

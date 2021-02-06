@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
 import "../sass/styles.sass"
-import moon from "../assets/moon.svg"
 
 
 
@@ -50,6 +49,6 @@ const Presentational = props => {
 }
 
 
-const NavContainer = connect (mapStateToProps, mapDispatchToProps) (Presentational);
+const Nav = connect (mapStateToProps, mapDispatchToProps) (Presentational);
 
-export default NavContainer;
+export default Nav;

@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import "../sass/styles.sass";
-import arrowDown from "../assets/icon-arrow-down-light.svg"
 
 class DropDown extends Component {
   constructor (props) {

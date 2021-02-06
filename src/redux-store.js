@@ -1,11 +1,13 @@
 import { createStore, combineReducers, applyMiddleware } from "redux";
 import thunkMiddleware  from "redux-thunk";
-import { navReducer } from "./components/nav-bar-component.js";
-import { searchReducer } from "./components/home-component.js";
+import { navReducer }  from "./components/nav-bar-component.js";
+import { homeReducer } from "./adapters/home-adapter.js";
 
 
 
-const rootReducers = combineReducers ({ nav: navReducer, home: searchReducer});
+const rootReducers = combineReducers (
+  { nav: navReducer, home: homeReducer}
+);
 
 
 const store = createStore (

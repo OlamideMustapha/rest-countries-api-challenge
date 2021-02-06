@@ -65,13 +65,15 @@
 
   .country__card-wrapper
     @include flex-column (center, center)
+    a
+      text-decoration: none
     @include breakpoint-up (medium)
-     flex-direction: row
-     justify-content: space-between
-     flex-wrap: wrap
-     margin: -$card-margin-m
-     max-width: max-content
-     height: 100%
+      flex-direction: row
+      justify-content: space-between
+      flex-wrap: wrap
+      margin: -$card-margin-m
+      max-width: max-content
+      height: 100%
     @include breakpoint-up (large)
       margin: -3vw -1.5vw
 

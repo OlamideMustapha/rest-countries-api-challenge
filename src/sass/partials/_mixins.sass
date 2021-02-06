@@ -40,3 +40,13 @@ $breakpoints-down: ("xsmall": "374px", "small": "639px", "medium": "1023px", "la
 @mixin input-style ()
   outline: none
   border: none
+
+@mixin scroll-bar ($bar_width, $bar_color)
+  scrollbar-color: $bar_color
+  scrollbar-width: $bar_width
+  &::-webkit-scrollbar
+    width: $bar_width
+    background-color: transparent
+  &::-webkit-scrollbar-thumb
+    background-color: $bar_color
+    // border-radius:    5px

@@ -6,7 +6,7 @@
   color: inherit
   background: inherit
   @include breakpoint-up (medium)
-    font-size: 1.4vw
+    font-size: 1.2vw
     padding: 0.3vw
 
   svg
@@ -15,18 +15,44 @@
       stroke-width: 12vw
       @include breakpoint-up (medium)
         stroke-width: 50px
+  &.country__btn
+    margin: 2vw 0vw 9vw 0vw
+    padding: 2vw 6vw
+    border-radius: 0.7vw
+    @include breakpoint-up (medium)
+      @include flex-row (center, center)
+      margin: 4vw 0vw
+      width: 8vw
+      height: 2.3vw
+      font-size: 1vw
+      // padding: 0.7vw 2.2vw
+      padding: 0vw
+      border-radius: 0.3vw
+
+  &.country__borders
+    margin: 0vw    
+    padding: 0.2vw 2vw
+    border-radius: 0.1vw
+    font-size: 0.7vw
+    margin-right: 0.9vw
+    @include flex-row (flex-start, flex-end)
+
   &.nav__btn
     @include flex-row (space-between, flex-end)
+  &.nav__btn,
+  &.country__btn
     *
       margin: 0vw 2vw
       @include breakpoint-up (medium)
-        margin: 0vw 0.6vw
+        margin: 0vw
+        margin-right: 0.7vw
     svg
       width: $btnIconWidth-s
       height: $btnIconWidth-s
       @include breakpoint-up (medium)
         width: $btnIconWidth-l
         height: $btnIconWidth-l
+
   &.search__btn
     width: 6.5vw
     height: 5vw
