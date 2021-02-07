@@ -5,6 +5,7 @@ import {
   Link,
   useLocation,
   useParams,
+  useHistory,
   useRouteMatch
 } from "react-router-dom";
 import { fetchCountryData } from '../adapters/home-adapter';
@@ -65,11 +66,12 @@ const Presentational = (props) => {
     props.fetchCountryData (countryId);
   }, []);
   
+  let history = useHistory ();
   return (
     <div className="country p-sm p-l">
       <div>
         <Link>
-          <button className="country__btn btn">
+          <button className="country__btn btn" onClick={history.goBack}>
             {/* Include icon */}
             <svg xmlns='http://www.w3.org/2000/svg' className='ionicon' viewBox='0 0 512 512'>
               <title>Arrow Back</title>
