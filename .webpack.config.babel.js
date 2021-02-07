@@ -152,7 +152,7 @@ const config = {
   output: {
     filename: 'index.js'
   , path: __dirname + '/build/static/js'
-  , publicPath: 'https://rest-countries-api-challenge-qzigx4z9y.vercel.app/'           // support for client-side routing
+  , publicPath: './'           // support for client-side routing
   },
 
   devServer: {
