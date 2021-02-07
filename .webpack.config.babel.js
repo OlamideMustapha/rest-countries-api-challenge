@@ -152,12 +152,12 @@ const config = {
   output: {
     filename: 'index.js'
   , path: __dirname + '/build/static/js'
-  , publicPath: '/'           // support for client-side routing
+  // , publicPath: '/'           // support for client-side routing
   },
 
-  devServer: {
-    historyApiFallback: true // support for client-side routing
-  },
+  // devServer: {
+  //   historyApiFallback: true // support for client-side routing
+  // },
 
 
   /**
