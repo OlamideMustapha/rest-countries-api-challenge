@@ -29,7 +29,7 @@ $breakpoints-down: ("xsmall": "374px", "small": "639px", "medium": "1023px", "la
   justify-content: $js
 
 @mixin input-wrapper ()
-  padding: 3vw 4vw
+  padding: 3vw 5vw
   border-radius: 1.5vw
   @include breakpoint-up(medium)
     padding: 1vw
@@ -41,11 +41,11 @@ $breakpoints-down: ("xsmall": "374px", "small": "639px", "medium": "1023px", "la
   outline: none
   border: none
 
-@mixin scroll-bar ($bar_width, $bar_color)
+@mixin scroll_bar ($bar_height, $bar_color)
   scrollbar-color: $bar_color
-  scrollbar-width: $bar_width
+  scrollbar-height: $bar_height
   &::-webkit-scrollbar
-    width: $bar_width
+    height: $bar_height
     background-color: transparent
   &::-webkit-scrollbar-thumb
     background-color: $bar_color

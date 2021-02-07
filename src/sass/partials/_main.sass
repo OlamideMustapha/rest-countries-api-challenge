@@ -6,9 +6,10 @@
 
     @include breakpoint-up (medium)
       flex-direction: row
-      align-items: center
+      align-items: flex-start
       font-size: 1.2vw
-      height: 10vw
+      height: max-content
+      margin: 2vw 0 4vw 0vw
 
     .search__input-wrapper
       border-radius: 1vw
@@ -25,12 +26,15 @@
         border: none
         width: 100%
         height: 100%
+        font-size: 3.18vw
+        @include breakpoint-up (medium)
+          font-size: 1.18vw
 
     .filter__drop-down-wrapper
       .drop-down
         @include flex-row (space-between, center)
         @include input-wrapper
-        width: 53vw
+        width: 57vw
         height: $input-height-sm
         position: relative
 
@@ -76,6 +80,7 @@
       height: 100%
     @include breakpoint-up (large)
       margin: -3vw -1.5vw
+      justify-content: flex-start
 
 
 .display
@@ -83,3 +88,7 @@
 
 .hide
   display: none
+
+
+.error__page
+  @include flex-row (center, center)

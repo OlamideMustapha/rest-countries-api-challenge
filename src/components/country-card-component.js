@@ -16,7 +16,6 @@ class CountryCard extends Component {
           <div className="country__card-flag" style={{backgroundImage: `url(${props.flag})`}}>
   
           </div>
-          {/* <img className="country__card-flag" src={props.flag} /> */}
         </div>
   
         <div className="country__card-info-wrapper">

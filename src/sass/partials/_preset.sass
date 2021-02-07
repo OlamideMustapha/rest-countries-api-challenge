@@ -25,11 +25,12 @@ body, html, #root
 
   
 .p-sm
-  @include breakpoint-down (medium)
-  padding: 6vw 4vw
+  padding: 4vw 6vw
+  @include breakpoint-up (medium)
+    padding: 5vw 4vw
 .p-l
   @include breakpoint-up (medium)
-    padding: 1vw 6vw  
+    padding: 1.5vw 6vw  
 
 .m-offset-sm
   @include breakpoint-down (medium)

@@ -1,31 +1,13 @@
-import React, { Component } from 'react';
-import { connect } from "react-redux";
-import "../sass/styles.sass"
+import React          from 'react';
+import { connect }    from "react-redux";
+import { toggleMode } from "../redux-store.js";
+import "../sass/styles.sass";
 
-
-
-// moon icon <ion-icon name="moon"></ion-icon>
-// <ion-icon name="moon-outline"></ion-icon>
-
-const defaultState = { darkMode: false };
-
-// action 
-const MODE = "MODE";
-// action creators
-const toggleMode = () => ( {type: MODE} );
-// reducer
-export const navReducer = (state = defaultState, action) => {
-  switch (action.type) {
-    case MODE:
-      return { darkMode: !state.darkMode };
-    default:
-      return state;
-  }
-}
 
 const mapDispatchToProps = (dispatch) => ({toggleMode: () => dispatch (toggleMode ())});
-const mapStateToProps    = ({ nav }) => (
-  { darkMode: nav.darkMode }
+
+const mapStateToProps    = ({ darkMode }) => (
+  { darkMode: darkMode }
 );
 
 

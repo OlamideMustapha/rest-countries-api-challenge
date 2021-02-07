@@ -1,7 +1,7 @@
 .country__card
   @include flex-column (center, center)
   border-radius: $border-radius-sm
-  width: 81vw
+  width: 75vw
   flex: 100%
   margin-top: 10vw
   @include breakpoint-up (medium)
@@ -40,35 +40,35 @@
     width: 100%
     border-bottom-right-radius:$border-radius-sm
     border-bottom-left-radius:$border-radius-sm
-    padding: 6vw
+    padding: 4vw 7vw 8vw 7vw
     @include breakpoint-up (medium)
-      padding: 1.5vw
+      padding: 1vw 1.5vw 1.5vw 1.5vw
       border-bottom-right-radius:$border-radius-l
       border-bottom-left-radius:$border-radius-l
 
     & > div
-      margin: 6vw 0
+      margin: 3vw 0
       @include breakpoint-up (medium)
         margin: 1vw 0
 
   &-name-wrapper
     overflow: hidden
   &-name
-    font-size: 8vw
+    font-size: 5vw
     padding: 0
     margin: 0
     white-space: nowrap
     overflow: hidden
     font-weight: 800
     @include breakpoint-up (medium)
-      font-size: 1.6vw
+      font-size: 1.3vw
       font-weight: 800
 
   &-info
     @include flex-row (flex-start, center)
     font-weight: 400
-    padding-bottom: 1.9vw
-    font-size: 4.8vw
+    padding-bottom: 1.5vw
+    font-size: 4.2vw
 
     @include breakpoint-up (medium)
       padding-bottom: .7vw

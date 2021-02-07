@@ -8,15 +8,17 @@
     svg path
       stroke: $veryDarkBlue-bg
     &.search__btn
+      background-color: $white
       svg path
         stroke: $darkGray
   
     &.nav__btn
       background-color: inherit
 
-    &.country__btn, &.country__borders-wrapper a
-      box-shadow: 0px 1px 9px 2px #73707057
-    
+    &.country__btn, &.country__borders
+      box-shadow: 0px 0px 2px 2px #bbbbbb57
+    &.country__borders button
+      color: $darkGray
   // nav color styles
   .nav
     color: $veryDarkBlue-text
@@ -35,6 +37,7 @@
           background-color: $white
           &, &::placeholder
             color: $darkGray
+
       .filter__drop-down-wrapper
         .drop-down
           background-color: $white
@@ -50,6 +53,7 @@
               color: $darkGray
               &:hover
                 background-color: $veryLightGray
+
     .country__card-wrapper
       .country__card
         box-shadow: $boxShadow-light
@@ -59,13 +63,15 @@
   .country
     &__name
       color: $veryDarkBlue-text
-    &__flag-wrapper
-      box-shadow: 0px 0px 2px 6px #d6d0d157
     &__info
       &-title
         color: $veryDarkBlue-text
       &-value
         color: $veryDarkBlue-text
+    .border__countries-title
+      color: $veryDarkBlue-text
+  .error__page h1
+    color: $veryDarkBlue-text
 
 
 .dark
@@ -85,9 +91,11 @@
       svg path
         fill: $white
         stroke: none
-    &.country__btn, &.country__borders-wrapper > a
-      box-shadow: 0px 0px 2px 6px #0000001f
-    
+    &.country__btn, &.country__borders
+      box-shadow: 0px 0px 4px 2px #0000001f
+    &.country__borders button
+      color: $veryLightGray
+
   .drop-down__btn
     svg path
       stroke: $white
@@ -135,13 +143,15 @@
   .country
     &__name
       color: $white
-    &__flag-wrapper
-      box-shadow: 0px 0px 2px 6px #0000001f
     &__info
       &-title
         color: $white
       &-value
         color: $white
+    .border__countries-title
+      color: $white
+  .error__page h1
+    color: $white
 
 
           

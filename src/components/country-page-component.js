@@ -1,27 +1,22 @@
 import React, { useState, useEffect } from 'react';
-import { connect } from "react-redux";
-
+import { connect }                    from "react-redux";
+import Nav                            from "./nav-bar-component.js";
 import {
   Link,
-  useLocation,
   useParams,
-  useHistory,
-  useRouteMatch
+  useHistory
 } from "react-router-dom";
 import { fetchCountryData } from '../adapters/home-adapter';
 
 import "../sass/styles.sass"
-// back arrow <ion-icon name="arrow-back-sharp"></ion-icon>
-
-const mapStateToProps = (store) => (
-  { ...store.home.country }
-)
 
 
-const mapDispatchToProps = (dispatch) => (
-  {fetchCountryData : name  => dispatch (fetchCountryData (name))
-  }
+const mapStateToProps = ({ country }) => (
+  { ...country }
 );
+
+
+const mapDispatchToProps = { fetchCountryData };
 
 
 const Info = (props) => {
@@ -38,11 +33,21 @@ const Info = (props) => {
 };
 
 
-const BorderCountry = (props) => {
+const BorderCountry = props => {
+  const [name, setName] = useState (props.name);
+
+  useEffect ( () => {
+    fetch (`https://restcountries.eu/rest/v2/alpha/${props.name}?fields=name`)
+      .then (res => res.json ())
+      .then (({ name }) => setName (name))
+      .catch (console.log);
+  }, [])
   return (
-    <button className="country__borders btn">
-      {props.name}
-    </button>
+    <Link to={`/country/${name}`} className="country__borders btn">
+      <button className="btn">
+        {name}
+      </button>
+    </Link>
   );
 };
 
@@ -64,85 +69,85 @@ const Presentational = (props) => {
   
   useEffect (() => {
     props.fetchCountryData (countryId);
-  }, []);
+  }, [countryId]);
   
   let history = useHistory ();
+  console.log (name);
   return (
-    <div className="country p-sm p-l">
-      <div>
-        <Link>
+    <div>
+      <Nav />
+      <main className="country p-sm p-l" >
+
+        <div>
           <button className="country__btn btn" onClick={history.goBack}>
-            {/* Include icon */}
             <svg xmlns='http://www.w3.org/2000/svg' className='ionicon' viewBox='0 0 512 512'>
               <title>Arrow Back</title>
               <path fill='none' stroke='currentColor' strokeLinecap='round' strokeLinejoin='round' strokeWidth='48' d='M244 400L100 256l144-144M120 256h292'/>
               </svg>
             Back
           </button>
-        </Link>
-      </div>
+        </div>
 
-      <div className="country__info-wrapper">
-        
-        <section className="country__flag-wrapper">
-          <div className="country__flag" style={{backgroundImage: `url(${flag})`}}>
+        <div className="country__info-wrapper">
+          
+          <section className="country__flag-wrapper">
+            <div className="country__flag" style={{backgroundImage: `url(${flag})`}}>
 
-          </div>
-        </section>
-
-        <section className="country__info-details">
-          <h1 className="country__name">{name}</h1>
-          <div className="country__info">
-            <ul className="country__info-first">
-              {/* Render Info */}  
-              
-              <Info title={"Native Name"} value={nativeName}/>
-              {
-                population ?
-                <Info title={"Population"} value={population.toLocaleString()}/>
-                : null
-              }
-              <Info title={"Region"} value={region}/>
-              <Info title={"Sub Region"} value={subregion}/>
-              <Info title={"Capital"} value={capital}/>
-            </ul>
-
-            <ul className="country__info-second">
-              {/* Render Info */}  
-              <Info title={"Top Level Domain"} value={topLevelDomain}/>
-              {
-                currencies ? <Info title={"Currencies"}     value={currencies.map ((l) => l.name).join (", ")}/>
-                : null
-              }
-              {
-                languages
-                ? <Info title={"Languages"}
-                        value={languages.map ((l) => l.name).join (", ")}/>
-                : null
-              }
-            </ul>
-          </div>
-
-          <section className="border__countries-wrapper">
-            <h1 className="border__countries-title">
-              Border Countries:
-            </h1>
-            
-            {/* Render Border Countries */}
-            <div className="country__borders-wrapper">
-              {
-                borders
-                ? borders.map ((b, index) =>
-                    <Link>
-                      <BorderCountry name={b} key={index} />
-                    </Link>)
-                : null
-              }
             </div>
           </section>
-        </section>
 
-      </div>
+          <section className="country__info-details">
+            <h1 className="country__name">{name}</h1>
+            <div className="country__info">
+              <ul className="country__info-first">
+                {/* Render Info */}  
+                
+                <Info title={"Native Name"} value={nativeName}/>
+                {
+                  population ?
+                  <Info title={"Population"} value={population.toLocaleString()}/>
+                  : null
+                }
+                <Info title={"Region"} value={region}/>
+                <Info title={"Sub Region"} value={subregion}/>
+                <Info title={"Capital"} value={capital}/>
+              </ul>
+
+              <ul className="country__info-second">
+                {/* Render Info */}  
+                <Info title={"Top Level Domain"} value={topLevelDomain}/>
+                {
+                  currencies ? <Info title={"Currencies"}     value={currencies.map ((l) => l.name).join (", ")}/>
+                  : null
+                }
+                {
+                  languages
+                  ? <Info title={"Languages"}
+                          value={languages.map ((l) => l.name).join (", ")}/>
+                  : null
+                }
+              </ul>
+            </div>
+
+            <section className="border__countries-wrapper">
+              <h1 className="border__countries-title">
+                Border Countries:
+              </h1>
+              
+              {/* Render Border Countries */}
+              <div className="country__borders-wrapper">
+                {
+                  borders
+                  ? borders.map ((b, index) =>
+                      <BorderCountry name={b} key={index} />)
+                  : null
+                }
+              </div>
+            </section>
+          </section>
+
+        </div>
+      </main>
 
     </div>
   );
