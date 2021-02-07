@@ -155,9 +155,9 @@ const config = {
   // , publicPath: '/'           // support for client-side routing
   },
 
-  // devServer: {
-  //   historyApiFallback: true // support for client-side routing
-  // },
+  devServer: {
+    historyApiFallback: true // support for client-side routing
+  },
 
 
   /**
