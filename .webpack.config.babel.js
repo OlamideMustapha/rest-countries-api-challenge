@@ -152,7 +152,7 @@ const config = {
   output: {
     filename: 'index.js'
   , path: __dirname + '/build/static/js'
-  // , publicPath: '/'           // support for client-side routing
+  , publicPath: '/static/js/'           // support for client-side routing
   },
 
   devServer: {
