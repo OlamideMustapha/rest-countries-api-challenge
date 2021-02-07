@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "A frontend coding challenge by frontend mentor.",
   "main": "index.js",
+  "homepage": "https://rest-countries-api-challenge-qzigx4z9y.vercel.app/",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "NODE_ENV=production webpack --mode production --config .webpack.config.babel.js",
