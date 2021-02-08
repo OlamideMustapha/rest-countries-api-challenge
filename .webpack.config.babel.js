@@ -93,8 +93,9 @@ const config = {
    * Entry point
    * indicates which module webpack shoudl use to begin building out its
    * internal dependency graph
+   * @babel/polyfill (support to async/await)
    */
-  entry: __dirname + '/src/index.js',
+  entry: ['@babel/polyfill', __dirname + '/src/index.js'],
 
 
   /**
