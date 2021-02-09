@@ -15,7 +15,7 @@ const mapStateToProps = ({ darkMode }) => (
 
 const Presentational = (props) => {
   return (
-    <div className={`app ${props.darkMode ? "dark" : "light"}`}>
+    <div id="infinite_scroll" className={`app ${props.darkMode ? "dark" : "light"}`}>
       <Switch>
         <Route path="/" component={Home} exact />
 

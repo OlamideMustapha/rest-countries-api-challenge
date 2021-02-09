@@ -4,11 +4,12 @@ import {
   , storeData
   , storeData_country} from "../redux-store.js"
 
+
 export const fetchAll = () => {
   const api      = " https://restcountries.eu/rest/v2/",
         endpoint = "all",
         params   = "?fields=name;population;capital;region;flag";
-        
+
   return async (dispatch) => {
     dispatch (requestingData ());
     try {
