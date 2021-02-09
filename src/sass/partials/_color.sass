@@ -1,7 +1,8 @@
 .light
   color: $veryDarkBlue-text
   background-color: $veryLightGray
-
+  &, *
+    @include scroll-bar-y (0.3vw, grey)
   .btn
     color: $veryDarkBlue-text
     background-color: $veryLightGray
@@ -79,6 +80,8 @@
 .dark
   color: $white
   background-color: $veryDarkBlue-bg
+  @include scroll-bar-y (0.3vw, $veryLightGray)
+
 
   .btn
     color: $white
@@ -94,7 +97,7 @@
         fill: $white
         stroke: none
     &.country__btn, &.country__borders
-      box-shadow: 0px 0px 4px 2px #0000001f
+      box-shadow: 0px 0px 2px 5px #0000001f
     &.country__borders button
       color: $veryLightGray
 
@@ -143,6 +146,9 @@
           color: $white
 
   .country
+    &__flag-wrapper
+      box-shadow: 0px 0px 2px 23px #2b343c45
+      border-radius: 0.1vw
     &__name
       color: $white
     &__info

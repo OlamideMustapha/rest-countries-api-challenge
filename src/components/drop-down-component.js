@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link }             from "react-router-dom";
 import "../sass/styles.sass";
 
 class DropDown extends Component {
@@ -7,7 +8,7 @@ class DropDown extends Component {
 
     this.state = {
       selected: "All",
-      options: ["Africa", "Americas", "Europe", "Asia", "Oceania"],
+      options: ["Africa", "Americas", "Asia", "Europe", "Oceania"],
     }
 
     this.handleClick = this.handleClick.bind (this);
@@ -21,7 +22,6 @@ class DropDown extends Component {
 
   render () {
     const { selected, options } = this.state;
-
     return (
       <div className="drop-down" value={selected}>
         <div className="drop-down__view">
@@ -33,7 +33,10 @@ class DropDown extends Component {
         <div className="drop-down__options hide">
           {
             options.map ((option, idx) => {
-              return <button value={option} key={idx} onClick={this.handleClick}>{option}</button>
+              const component = <Link key={idx} to={`/region/${option}`}>
+                <button value={option} >{option === "Americas" ? "America" : option}</button>
+              </Link>
+              return component;
             })
           }
         </div>

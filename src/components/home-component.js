@@ -21,8 +21,9 @@ const mapDispatchToProps =
 
 
 // Mapping redux state to props
-const mapStateToProps = ({ countries }) => (
-  { countries: countries }
+const mapStateToProps = ({ countries, fetching }) => (
+  { countries: countries,
+    loading : fetching }
 );
 
 
@@ -42,7 +43,6 @@ class Presentational extends Component {
       prev: 0,  
       next: 20,
       hasMore: true,
-
       current: []
     };
 
@@ -102,76 +102,109 @@ class Presentational extends Component {
 
 
   render () {
-    const { current, hasMore, input } = this.state;
+    const { current, hasMore, input, loading } = this.state;
 
+    const body =  <main className={`home p-sm p-l`}>
+      <div className="search-filter">
+        <div className="search__input-wrapper">
+          <button className="search__btn btn"
+                  onClick={this.searchByName}>
+
+            <svg xmlns='http://www.w3.org/2000/svg'
+                className='ionicon' viewBox='0 0 512 512'>
+              <title>Search</title>
+              <path d='M221.09 64a157.09 157.09 0 10157.09 157.09A157.1 157.1 0 00221.09 64z'
+                    fill='none' stroke='currentColor' strokeMiterlimit='10'
+                    strokeWidth='32'/>
+              <path fill='none' stroke='currentColor'
+                    strokeLinecap='round' strokeMiterlimit='10'
+                    strokeWidth='32' d='M338.29 338.29L448 448'/>
+            </svg>
+
+          </button>
+
+          <input value={input}
+                onChange={this.handleInputChange}
+                placeholder="Search for a country..."/>
+        </div>
+
+        <div className="filter__drop-down-wrapper">
+          <DropDown filterByRegion={this.filterByRegion}/>
+        </div>
+      </div>
+
+
+      {/* render list of countries */}
+      <InfiniteScroll dataLength={current.length}
+                      next={this.loadMoreData}
+                      hasMore={hasMore}
+                      loader={<p className="loader">Loading ....</p>}
+                      scrollableTarget="infinite_scroll"
+                      style={{ overflow: 'none'}}
+      >
+        <div className="country__card-wrapper">
+          {this.state.current.map ((c, idx) =>
+            <Link key={idx} to={`/country/${c.name}`}>
+              <CountryCard flag={c.flag}
+                           name={c.name} population={c.population}
+                           region={c.region} capital={c.capital} />
+            </Link>
+            )
+          }
+        </div>
+      </InfiniteScroll>
+
+    </main>
+
+    
     return (
       <div>
-
         {/* Navigation */}
         <Nav />
 
         {/* Main page */}
-        <main className={`home p-sm p-l`}>
-
-          <div className="search-filter">
-            <div className="search__input-wrapper">
-              <button className="search__btn btn"
-                      onClick={this.searchByName}>
-
-                <svg xmlns='http://www.w3.org/2000/svg'
-                     className='ionicon' viewBox='0 0 512 512'>
-                  <title>Search</title>
-                  <path d='M221.09 64a157.09 157.09 0 10157.09 157.09A157.1 157.1 0 00221.09 64z'
-                        fill='none' stroke='currentColor' strokeMiterlimit='10'
-                        strokeWidth='32'/>
-                  <path fill='none' stroke='currentColor'
-                        strokeLinecap='round' strokeMiterlimit='10'
-                        strokeWidth='32' d='M338.29 338.29L448 448'/>
-                </svg>
-
-              </button>
-
-              <input value={input}
-                     onChange={this.handleInputChange}
-                     placeholder="Search for a country..."/>
-            </div>
-
-            <div className="filter__drop-down-wrapper">
-              <DropDown filterByRegion={this.filterByRegion}/>
-            </div>
-          </div>
-
-
-          {/* render list of countries */}
-          <InfiniteScroll dataLength={current.length}
-                          next={this.loadMoreData}
-                          hasMore={hasMore}
-                          loader={<p className="loader">Loading ....</p>}
-                          scrollableTarget="infinite_scroll"
-                          style={{ overflow: 'none'}}
-          >
-            <div className="country__card-wrapper">
-              {this.state.current.map ((c, idx) =>
-                <Link key={idx} to={`/country/${c.name}`}>
-                  <CountryCard flag={c.flag}
-                                name={c.name} population={c.population}
-                                region={c.region} capital={c.capital} />
-                </Link>
-                )
-              }
-            </div>
-          </InfiniteScroll>
-
-        </main>
+        {loading
+          ? <h5 className="loader">Loading ...</h5>
+          : body
+         }
         {/* End of main page */}
 
       </div>
     )
   }
-  componentDidMount () {
 
-   this.props.fetchAll ()
-    .then ( this.updateCurrent );
+  componentDidUpdate (prevProps) {
+    const { match, fetchAll } = this.props;
+
+    if ( prevProps.match.url !== match.url) {
+      if ( match.path === "/") {
+        fetchAll ()
+          .then ( this.updateCurrent );
+      } else {
+        /* else display all */
+        const { region } = match.params
+        this.filterByRegion (region);
+        
+      }
+    }
+
+  }
+  
+  componentDidMount () {
+    const { match, fetchAll } = this.props;
+    /**
+     * if component routes to /:region, filter by region
+     */
+    if ( match.path === "/") {
+      fetchAll ()
+      .then ( this.updateCurrent );
+    } else {
+      /* else display all */
+      const { region } = match.params
+      this.filterByRegion (region);
+    }
+
+    this.setState ( { path: match.path });
   }
 }
 

@@ -41,11 +41,22 @@ $breakpoints-down: ("xsmall": "374px", "small": "639px", "medium": "1023px", "la
   outline: none
   border: none
 
+
 @mixin scroll_bar ($bar_height, $bar_color)
   scrollbar-color: $bar_color
   scrollbar-height: $bar_height
   &::-webkit-scrollbar
     height: $bar_height
+    background-color: transparent
+  &::-webkit-scrollbar-thumb
+    background-color: $bar_color
+    border-radius:    2px
+
+@mixin scroll_bar-y ($bar_width, $bar_color)
+  scrollbar-color: $bar_color
+  scrollbar-width: $bar_width
+  &::-webkit-scrollbar
+    width: $bar_width
     background-color: transparent
   &::-webkit-scrollbar-thumb
     background-color: $bar_color

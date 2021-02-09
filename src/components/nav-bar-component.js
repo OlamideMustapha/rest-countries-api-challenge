@@ -1,6 +1,8 @@
 import React          from 'react';
 import { connect }    from "react-redux";
 import { toggleMode } from "../redux-store.js";
+import { Link }       from "react-router-dom";
+
 import "../sass/styles.sass";
 
 
@@ -15,7 +17,9 @@ const Presentational = props => {
   return (
     <nav className={`nav p-sm p-l`}>
       <div>
-        <h1 className="nav__text">Where in the world?</h1>
+        <Link to="/">
+          <h1 className="nav__text">Where in the world?</h1>
+        </Link>
       </div>
 
       <div>
