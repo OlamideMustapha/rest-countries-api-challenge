@@ -1,3 +1,8 @@
+/** 
+ * * home page 
+ */
+
+ 
 import React, { Component } from 'react';
 import { connect }          from "react-redux";
 import { Link }             from "react-router-dom";
@@ -12,7 +17,7 @@ import {
 import "../sass/styles.sass";
 
 
-// Maping action creators to props
+// * mapping redux action creators to props
 const mapDispatchToProps =
   { searchCountryData: handleSearchRequest
   , filterCountryData: handleFilterRequest
@@ -20,93 +25,132 @@ const mapDispatchToProps =
   }
 
 
-// Mapping redux state to props
+// * mapping redux state to props
 const mapStateToProps = ({ countries, fetching }) => (
-  { countries: countries,
-    loading : fetching }
+  { countries: countries
+  , loading : fetching
+  }
 );
 
 
-
+/**
+ * Home Page component
+ * * This component uses infinite scroll, this allows for
+ * * better performance when rendering lists country data
+ */
 class Presentational extends Component {
   constructor (props) {
     super (props);
 
+    //* initializing state
     this.state = {
-      // holds input value
-      input: "",
-
-      /**
-       *  determines what index to slice country data to
-       *  be rendered from  
-       */
-      prev: 0,  
-      next: 20,
+      input: "",  //? holds input value for contolled component
+      prev: 0,    //? index to start slicing data
+      next: 16,   //* index to stop slicing data
+                  //? 4x4
       hasMore: true,
-      current: []
+      current: [] //? holds the current list of data to render
     };
 
+    //* binding methods to component
     this.handleInputChange = this.handleInputChange.bind (this);
     this.filterByRegion    = this.filterByRegion.bind (this);
     this.updateCurrent     = this.updateCurrent.bind (this);
     this.searchByName      = this.searchByName.bind (this);
     this.loadMoreData      = this.loadMoreData.bind (this);
+    this.handleKeyPress    = this.handleKeyPress.bind (this);
   }
 
-  /* handles input controlled component */
+
+  /**
+   * handleInputChange
+   * * updates the input value for controlled input
+   * @param {*} event 
+   */
   handleInputChange (event) {
     this.setState ({ input: event.target.value });
   }
 
-  /* search country */
+
+  /**
+   * handleKeyPress
+   * ? Trigger's search on Enter key press
+   */
+
+  handleKeyPress (event) {
+    if (event.key == "Enter") {
+      this.searchByName ()
+    }
+  }
+  
+  /**
+   * searchByName
+   * * updates component to render user's search input
+   */
   searchByName () {
-    // search for country name entered
     this.props.searchCountryData (this.state.input)
       .then ( this.updateCurrent );
   }
 
-  /* filtering countries by region */
+
+  /**
+   * filterByRegion 
+   * * updates component to render data filtered by region
+   */
   filterByRegion (value) {
     this.props.filterCountryData (value)
       .then ( this.updateCurrent );
   }
 
-  /* Updates countries data being rendered */
+
+  /**
+   * loadMoreData
+   * * appends more data to be rendered to current
+   * ? called by the infinite scroll component
+   */
   loadMoreData () {
-    let { prev, next, current } = this.state;
+    const { prev, next, current } = this.state;
     const { countries } = this.props;
 
+    //? check if all data has being loaded
     if (current.length === countries.length) {
       this.setState ({ hasMore: false });
-      return;
+      return; //! exit
     }
 
-    const newPrev = prev + 10;
-    const newNext = next + 10;
+    const newPrev = prev + 16;
+    const newNext = next + 16;
 
+    //* 2s delay while loading data
     setTimeout(() => {
       const updated = current.concat (countries.slice (newPrev, newNext));
-      this.setState ({current: updated });
+      this.setState ({ current: updated });
     }, 2000);
 
 
     this.setState({ prev: newPrev, next: newNext });
-
   }
 
+  /**
+   * updateCurrent
+   * * helper method to set current data to display
+   */
   updateCurrent () {
-    const { prev, next } = this.state;
-    const { countries } = this.props;
-    this.setState ({ current: countries.slice (prev, next) });
+    const { prev, next } = this.state,
+          { countries }  = this.props,
+          chunk          = countries.slice (prev, next),
+          hasMore        = chunk.length < countries.length;
+    this.setState ({ current: chunk, hasMore });
   }
 
 
   render () {
-    const { current, hasMore, input, loading } = this.state;
-
+    const { current, hasMore, input } = this.state;
+    const { loading } = this.props;
+    
     const body =  <main className={`home p-sm p-l`}>
       <div className="search-filter">
-        <div className="search__input-wrapper">
+        <div className="search__input-wrapper" onKeyPress={this.handleKeyPress}>
           <button className="search__btn btn"
                   onClick={this.searchByName}>
 
@@ -141,6 +185,7 @@ class Presentational extends Component {
                       loader={<p className="loader">Loading ....</p>}
                       scrollableTarget="infinite_scroll"
                       style={{ overflow: 'none'}}
+                      className="infinite_scroll"
       >
         <div className="country__card-wrapper">
           {this.state.current.map ((c, idx) =>
@@ -176,15 +221,21 @@ class Presentational extends Component {
   componentDidUpdate (prevProps) {
     const { match, fetchAll } = this.props;
 
+    /**
+     * * update component to render the desired list of
+     * * data when route changes
+     * ? prevProps is the previous props before update
+     * ? props.match holds routing data for this component
+     */
     if ( prevProps.match.url !== match.url) {
       if ( match.path === "/") {
+        //? fetch data for all country
         fetchAll ()
           .then ( this.updateCurrent );
       } else {
-        /* else display all */
-        const { region } = match.params
-        this.filterByRegion (region);
-        
+        //? fetch data for region specified
+        const { region } = match.params //? access route parameter
+        this.filterByRegion (region);      
       }
     }
 
@@ -193,22 +244,27 @@ class Presentational extends Component {
   componentDidMount () {
     const { match, fetchAll } = this.props;
     /**
-     * if component routes to /:region, filter by region
+     * * Enable the component to load the desire list
+     * * depending on the url
+     * ? this code block let the app render the appropiate list
+     * ? if the is enter directly
      */
-    if ( match.path === "/") {
+    if (match.path === "/") {
+      //? fetch data for all country
       fetchAll ()
       .then ( this.updateCurrent );
     } else {
-      /* else display all */
+      //? fetch data for region specified
       const { region } = match.params
       this.filterByRegion (region);
     }
 
-    this.setState ( { path: match.path });
   }
 }
 
 
+//* connecting component to redux store
+//! do not remove line
 const Home = connect (mapStateToProps, mapDispatchToProps) (Presentational);
 
 export default Home;

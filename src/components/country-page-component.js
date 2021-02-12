@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { connect }                    from "react-redux";
 import Nav                            from "./nav-bar-component.js";
 import {
@@ -66,15 +66,19 @@ const Presentational = (props) => {
       , languages
       , borders
       , topLevelDomain} = props.data;
+  const mounted = useRef (false);
 
-      
   useEffect (() => {
-    let mounted = true;
-    if (mounted) {
+    mounted.current = true;
+    return () => { mounted.current = false; }
+  })
+
+  useEffect (() => {
+    if (mounted.current == true) {
       props.fetchCountryData (countryId);
     }
- 
-    return () => mounted = false;
+
+    return () => {}
   }, [countryId]);
   
   let history = useHistory ();
